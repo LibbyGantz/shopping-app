@@ -9,8 +9,10 @@ import type { RootState } from '../app/store';
 import type { AppDispatch } from '../app/store';
 import { addToCart } from '../features/cart/cartSlice';
 import CartPreview from '../components/CartPreview';
+import { useNavigate } from 'react-router-dom';
 
 const ShopPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const categories = useSelector((state: RootState) => state.categories.list);
   const selectedCategoryId = useSelector((state: RootState) => state.products.selectedCategoryId);
@@ -71,9 +73,12 @@ const ShopPage = () => {
 
       <CartPreview />
       <div className="mt-10 flex justify-center">
-        <button className="bg-green-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-green-700">
-          המשך להזמנה
-        </button>
+        <button
+  onClick={() => navigate('/checkout')}
+  className="bg-green-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-green-700"
+>
+  המשך להזמנה
+</button>
       </div>
     </div>
   );
