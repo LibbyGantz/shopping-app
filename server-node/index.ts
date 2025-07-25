@@ -1,0 +1,45 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+//import Order from './models/Order';
+import orderRoutes from './routes/orderRoutes';
+
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 4000;
+
+app.use(cors());
+app.use(express.json());
+
+// connect to MongoDB
+app.use('/api/orders', orderRoutes);
+// console.log('MONGO_URI:', process.env.MONGO_URI);
+
+mongoose
+  .connect(process.env.MONGO_URI!)
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => console.error('MongoDB connection error:', err));
+
+  // Routes
+  app.use('/api/orders', orderRoutes);
+
+
+ // API for creating orders
+//   app.post('/api/orders', async (req, res) => {
+//   console.log('Order received:', req.body); // check
+
+//   try {
+//     const newOrder = new Order(req.body);
+//     await newOrder.save();
+//     res.status(201).json(newOrder);
+//   } catch (error) {
+//     console.error('Error saving order:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
+
