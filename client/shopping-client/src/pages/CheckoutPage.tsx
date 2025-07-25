@@ -15,31 +15,81 @@ const CheckoutPage = () => {
     email: '',
   });
 
+const handleCancel = () => {
+  navigate(-1); // חזרה לעמוד הקודם בהיסטוריה
+};
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    if (!formData.name || !formData.address || !formData.email) {
-      alert('נא למלא את כל השדות');
-      return;
-    }
+  // const handleSubmit = () => {
+  //   if (!formData.name || !formData.address || !formData.email) {
+  //     alert('נא למלא את כל השדות');
+  //     return;
+  //   }
 
-    const order = {
-      customer: formData,
-      items: cartItems,
-    };
+  //   const order = {
+  //     customer: formData,
+  //     items: cartItems,
+  //   };
 
-    console.log('הזמנה נשלחה:', order);
-    dispatch(clearCart());
-    navigate('/');
+  //   console.log('הזמנה נשלחה:', order);
+  //   dispatch(clearCart());
+  //   navigate('/');
+  // };
+
+//   await fetch('http://localhost:4000/api/orders', {
+//   method: 'POST',
+//   headers: { 'Content-Type': 'application/json' },
+//   body: JSON.stringify({
+//     name: 'Test Order',
+//     items: [{ productId: 1, quantity: 2 }],
+//     total: 199
+//   })
+// });
+
+
+  const handleSubmit = async () => {
+  if (!formData.name || !formData.address || !formData.email) {
+    alert('נא למלא את כל השדות');
+    return;
+  }
+
+  const order = {
+    customer: formData,
+    items: cartItems,
   };
 
-  return (
-    <div className="p-8 max-w-3xl mx-auto bg-white rounded shadow">
-      <h2 className="text-2xl font-bold mb-6">סיכום הזמנה</h2>
+  try {
+    const response = await fetch('http://localhost:4000/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    });
 
-      <div className="grid gap-4 mb-6">
+    if (!response.ok) {
+      throw new Error('ההזמנה נכשלה');
+    }
+
+    alert('✅ ההזמנה התקבלה!');
+    dispatch(clearCart());
+    navigate('/');
+  } catch (err) {
+    alert('❌ שגיאה בשליחת ההזמנה');
+    console.error(err);
+  }
+};
+
+
+  return (
+    <div className="p-8 max-w-3xl mx-auto bg-white rounded shadow items-center">
+      <h2 className="text-2xl font-bold mb-6 flex justify-center">סיכום הזמנה</h2>
+
+      <div className="grid gap-4 mb-6 justify-right items-center content-center">
         <input
           type="text"
           name="name"
@@ -51,7 +101,7 @@ const CheckoutPage = () => {
           type="text"
           name="address"
           placeholder="כתובת מלאה"
-          className="border px-4 py-2 rounded"
+          className="border px-4 py-2 rounded justify-center items-center content-center"
           onChange={handleChange}
         />
         <input
@@ -63,7 +113,7 @@ const CheckoutPage = () => {
         />
       </div>
 
-      <h3 className="text-lg font-semibold mb-2">מוצרים שנבחרו:</h3>
+      <h3 className="text-lg font-semibold mb-2 flex justify-center">מוצרים שנבחרו:</h3>
       <ul className="mb-6">
         {cartItems.map((item) => (
           <li key={item.id} className="flex justify-between py-1 border-b">
@@ -72,13 +122,28 @@ const CheckoutPage = () => {
           </li>
         ))}
       </ul>
+      <div className="flex justify-between items-center mb-6">
+        <span className="font-bold">סך הכל:</span>
+        <span className="text-lg font-semibold">
+          ₪{cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
+        </span>
+        </div>
+      <div className="flex justify-between items-center mb-6">
 
       <button
+  onClick={handleCancel}
+  className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-3 rounded-xl justify-center"
+>
+ביטול
+</button>
+
+<button
         onClick={handleSubmit}
-        className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700"
+        className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 flex justify-center"
       >
         אשר הזמנה
       </button>
+    </div>
     </div>
   );
 };
