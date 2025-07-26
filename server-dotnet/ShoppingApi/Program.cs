@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Models;
+using ShoppingApi.Data;
 //using ShoppingApi.Controllers;
 using System.Linq;
 using System.Collections.Generic;
