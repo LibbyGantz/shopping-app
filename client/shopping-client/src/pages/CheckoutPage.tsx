@@ -24,7 +24,7 @@ const CheckoutPage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    // אפשר לנקות את השגיאה ברגע שמשתמש מתחיל להקליד
+    // Clear error for the field being changed
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: '' }));
     }

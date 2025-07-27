@@ -15,15 +15,6 @@ const initialState: CategoriesState = {
   status: 'idle',
 };
 
-// בהמשך תתחלף ב-fetch מהשרת
-// export const fetchCategories = createAsyncThunk('categories/fetch', async () => {
-//   return [
-//     { id: 1, name: 'פירות' },
-//     { id: 2, name: 'ירקות' },
-//     { id: 3, name: 'חטיפים' },
-//   ];
-// });
-
 export const fetchCategories = createAsyncThunk('categories/fetch', async () => {
   const response = await fetch('http://localhost:5166/api/categories');
   if (!response.ok) {
@@ -32,7 +23,6 @@ export const fetchCategories = createAsyncThunk('categories/fetch', async () => 
   const data: Category[] = await response.json();
   return data;
 });
-
 
 const categoriesSlice = createSlice({
   name: 'categories',

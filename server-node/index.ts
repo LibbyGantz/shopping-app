@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-//import Order from './models/Order';
 import orderRoutes from './routes/orderRoutes';
 
 dotenv.config();
@@ -26,20 +25,5 @@ mongoose
 
   // Routes
   app.use('/api/orders', orderRoutes);
-
-
- // API for creating orders
-//   app.post('/api/orders', async (req, res) => {
-//   console.log('Order received:', req.body); // check
-
-//   try {
-//     const newOrder = new Order(req.body);
-//     await newOrder.save();
-//     res.status(201).json(newOrder);
-//   } catch (error) {
-//     console.error('Error saving order:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// });
 
 

@@ -20,18 +20,11 @@ const ShopPage = () => {
     state.products.list.filter((p) => p.categoryId === selectedCategoryId)
   );
 
-  // Log all products fetched from the server *** CHECK */
-  const fullProducts = useSelector((state: RootState) => state.products.list);
-
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredProducts = products.filter(p =>
   p.name.toLowerCase().includes(searchTerm.toLowerCase())
 );
-
-// useEffect(() => {
-//   console.log('All products from server:', fullProducts);
-// }, [fullProducts]);
 
   useEffect(() => {
     dispatch(fetchCategories());

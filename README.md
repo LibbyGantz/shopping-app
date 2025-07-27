@@ -73,7 +73,16 @@ dotnet restore
 dotnet run
 ```
 
-Runs on: `http://localhost:5000`
+Runs on: `http://localhost:5166`
+
+Links for Server Results:
+
+Categories List:
+`http://localhost:5166/api/categories`
+
+Products List:
+`http://localhost:5166/api/products`
+
 
 > Make sure SQL Server is installed and connection string is set correctly.
 
