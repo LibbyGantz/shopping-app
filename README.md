@@ -75,7 +75,7 @@ dotnet run
 
 Runs on: `http://localhost:5166`
 
-Links for Server Results:
+Links for server results:
 
 Categories List:
 `http://localhost:5166/api/categories`
