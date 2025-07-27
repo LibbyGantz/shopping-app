@@ -20,7 +20,6 @@ appsettings.json
 
 # config files .NET
 appsettings.json
-appsettings.Development.json
 appsettings.Local.json
 
 # Environment files Node.js

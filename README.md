@@ -33,11 +33,11 @@ It includes:
 
 ```
 shopping-app/
-├── client/             # React + Redux
-├── server-dotnet/      # .NET 8 + SQL Server
-├── server-node/        # Express.js + MongoDB
-├── docs/               # Architecture diagram, cloud planning
-└── docker-compose.yml  # (planned)
+├── client/shopping-client            # React + Redux
+├── server-dotnet/ShoppingApi         # .NET 8 + SQL Server
+├── server-node/                      # Express.js + MongoDB
+├── docs/                             # Architecture diagram, cloud planning
+└── docker-compose.yml                # Running all combined
 ```
 
 ---
@@ -68,7 +68,7 @@ Frontend runs on: `http://localhost:5173`
 ### 3. .NET Backend Setup (Products API)
 
 ```bash
-cd server-dotnet
+cd server-dotnet/ShoppingApi
 dotnet restore
 dotnet run
 ```
