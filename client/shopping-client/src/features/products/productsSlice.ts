@@ -4,7 +4,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 export interface Product {
   id: number;
   name: string;
-  categoryId: number;
+  categoryId: number;     // Added categoryId to associate product with category
   price: number;
 }
 
@@ -26,19 +26,8 @@ export const fetchProducts = createAsyncThunk('products/fetch', async () => {
   if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-
-  const data = await response.json();
-
-  // Map the response to match the Product interface
-  const mapped = data.map((p: any) => ({
-    id: p.id,
-    name: p.name,
-    price: p.price,
-    categoryId: Number(p.categoryId ?? p.category?.id ?? 0),
-  }));
-
-  console.log('Products fetched:', mapped); // *** CHECK
-  return mapped;
+  const data: Product[] = await response.json();
+  return data;
 });
 
 const productsSlice = createSlice({
@@ -46,7 +35,6 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setSelectedCategory(state, action: PayloadAction<number>) {
-      console.log('Selected category:', action.payload); // *** CHECK
       state.selectedCategoryId = action.payload;
     },
   },

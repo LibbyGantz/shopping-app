@@ -30,6 +30,7 @@ public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
             Id = p.Id,
             Name = p.Name,
             Price = p.Price,
+            CategoryId = p.CategoryId,
             CategoryName = p.Category != null ? p.Category.Name : string.Empty
         })
         .ToListAsync();
