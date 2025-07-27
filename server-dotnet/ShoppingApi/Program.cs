@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Models;
 using ShoppingApi.Data;
-//using ShoppingApi.Controllers;
 using System.Linq;
 using System.Collections.Generic;
 using System;
@@ -16,6 +15,11 @@ builder.Services.AddSwaggerGen();
 // Configure Entity Framework Core with SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+});
 
 var app = builder.Build();
 

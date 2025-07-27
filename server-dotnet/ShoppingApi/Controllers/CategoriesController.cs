@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoriesController : ControllerBase
+public class CategoriesController(AppDbContext context) : ControllerBase
 {
-    private readonly AppDbContext _context;
-
-    public CategoriesController(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
