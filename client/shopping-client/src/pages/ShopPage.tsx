@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../features/categories/categoriesSlice';
 import {
@@ -23,10 +23,15 @@ const ShopPage = () => {
   // Log all products fetched from the server *** CHECK */
   const fullProducts = useSelector((state: RootState) => state.products.list);
 
-useEffect(() => {
-  console.log('All products from server:', fullProducts);
-}, [fullProducts]);
+  const [searchTerm, setSearchTerm] = useState('');
 
+  const filteredProducts = products.filter(p =>
+  p.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
+// useEffect(() => {
+//   console.log('All products from server:', fullProducts);
+// }, [fullProducts]);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -42,6 +47,8 @@ useEffect(() => {
           type="text"
           placeholder="שם המוצר"
           className="border rounded px-4 py-2 w-1/3"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <select
@@ -58,7 +65,7 @@ useEffect(() => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((p) => (
+        {filteredProducts.map((p) => (
           <div
             key={p.id}
             className="bg-white shadow-md rounded-lg p-4 hover:shadow-xl transition"
@@ -88,10 +95,6 @@ useEffect(() => {
   המשך להזמנה
 </button>
       </div>
-
-      <p>נבחרה קטגוריה: {selectedCategoryId}</p>
-<p>מספר מוצרים שמוצגים: {products.length}</p>
-
     </div>
   );
 };
