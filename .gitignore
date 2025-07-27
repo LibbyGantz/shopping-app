@@ -16,7 +16,7 @@ node_modules/
 dist/
 .env
 appsettings.Development.json
-appsettings.Local.json
+appsettings.json
 
 # Editor directories and files
 .vscode/*
