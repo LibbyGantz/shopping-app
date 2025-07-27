@@ -16,13 +16,23 @@ const initialState: CategoriesState = {
 };
 
 // בהמשך תתחלף ב-fetch מהשרת
+// export const fetchCategories = createAsyncThunk('categories/fetch', async () => {
+//   return [
+//     { id: 1, name: 'פירות' },
+//     { id: 2, name: 'ירקות' },
+//     { id: 3, name: 'חטיפים' },
+//   ];
+// });
+
 export const fetchCategories = createAsyncThunk('categories/fetch', async () => {
-  return [
-    { id: 1, name: 'פירות' },
-    { id: 2, name: 'ירקות' },
-    { id: 3, name: 'חטיפים' },
-  ];
+  const response = await fetch('http://localhost:5166/api/categories');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const data: Category[] = await response.json();
+  return data;
 });
+
 
 const categoriesSlice = createSlice({
   name: 'categories',

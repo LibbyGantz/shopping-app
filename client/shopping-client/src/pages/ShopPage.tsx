@@ -20,6 +20,14 @@ const ShopPage = () => {
     state.products.list.filter((p) => p.categoryId === selectedCategoryId)
   );
 
+  // Log all products fetched from the server *** CHECK */
+  const fullProducts = useSelector((state: RootState) => state.products.list);
+
+useEffect(() => {
+  console.log('All products from server:', fullProducts);
+}, [fullProducts]);
+
+
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchProducts());
@@ -80,6 +88,10 @@ const ShopPage = () => {
   המשך להזמנה
 </button>
       </div>
+
+      <p>נבחרה קטגוריה: {selectedCategoryId}</p>
+<p>מספר מוצרים שמוצגים: {products.length}</p>
+
     </div>
   );
 };

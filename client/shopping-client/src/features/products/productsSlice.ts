@@ -20,14 +20,25 @@ const initialState: ProductsState = {
   selectedCategoryId: null,
 };
 
-// בעתיד יוחלף ב-fetch מהשרת
+// Fetch products from the server
 export const fetchProducts = createAsyncThunk('products/fetch', async () => {
-  return [
-    { id: 1, name: 'תפוח', categoryId: 1, price: 2.5 },
-    { id: 2, name: 'בננה', categoryId: 1, price: 3 },
-    { id: 3, name: 'גזר', categoryId: 2, price: 1.8 },
-    { id: 4, name: 'במבה', categoryId: 3, price: 4.5 },
-  ];
+  const response = await fetch('http://localhost:5166/api/products');
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
+  const data = await response.json();
+
+  // Map the response to match the Product interface
+  const mapped = data.map((p: any) => ({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    categoryId: Number(p.categoryId ?? p.category?.id ?? 0),
+  }));
+
+  console.log('Products fetched:', mapped); // *** CHECK
+  return mapped;
 });
 
 const productsSlice = createSlice({
@@ -35,6 +46,7 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     setSelectedCategory(state, action: PayloadAction<number>) {
+      console.log('Selected category:', action.payload); // *** CHECK
       state.selectedCategoryId = action.payload;
     },
   },
