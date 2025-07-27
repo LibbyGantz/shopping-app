@@ -18,6 +18,14 @@ dist/
 appsettings.Development.json
 appsettings.json
 
+# config files .NET
+appsettings.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Environment files Node.js
+.env
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
