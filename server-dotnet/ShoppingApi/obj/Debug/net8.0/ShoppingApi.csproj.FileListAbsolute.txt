@@ -168,3 +168,4 @@ C:\Users\newuser\Documents\react_projects\shopping-app\server-dotnet\ShoppingApi
 C:\Users\newuser\Documents\react_projects\shopping-app\server-dotnet\ShoppingApi\obj\Debug\net8.0\ShoppingApi.pdb
 C:\Users\newuser\Documents\react_projects\shopping-app\server-dotnet\ShoppingApi\obj\Debug\net8.0\ShoppingApi.genruntimeconfig.cache
 C:\Users\newuser\Documents\react_projects\shopping-app\server-dotnet\ShoppingApi\obj\Debug\net8.0\ref\ShoppingApi.dll
+C:\Users\newuser\Documents\react_projects\shopping-app\server-dotnet\ShoppingApi\bin\Debug\net8.0\appsettings.template.json
