@@ -16,15 +16,27 @@ const ShopPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const categories = useSelector((state: RootState) => state.categories.list);
   const selectedCategoryId = useSelector((state: RootState) => state.products.selectedCategoryId);
-  const products = useSelector((state: RootState) =>
-    state.products.list.filter((p) => p.categoryId === selectedCategoryId)
-  );
+  const allProducts = useSelector((state: RootState) => state.products.list);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredProducts = products.filter(p =>
-  p.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  // Filter products based on search term and selected category
+  const finalProducts = allProducts.filter((p) => {
+    const matchesSearch = searchTerm.trim()
+      ? p.name.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+
+    const matchesCategory = selectedCategoryId
+      ? p.categoryId === selectedCategoryId
+      : true;
+
+      // If no category is selected, show all products
+       return matchesSearch && matchesCategory;
+  });
+
+  // If no search term and no category selected, show no products
+  const productsToDisplay =
+    !searchTerm && !selectedCategoryId ? [] : finalProducts;
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -58,7 +70,7 @@ const ShopPage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((p) => (
+        {productsToDisplay.map((p) => (
           <div
             key={p.id}
             className="bg-white shadow-md rounded-lg p-4 hover:shadow-xl transition"
