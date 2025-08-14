@@ -133,7 +133,7 @@ const CheckoutPage = () => {
       <div className="flex justify-between items-center mb-6">
         <button
           onClick={handleCancel}
-          className="bg-gray-400 hover:bg-gray-500 text-white px-6 py-3 rounded-xl justify-center"
+          className="bg-red-400 hover:bg-red-500 text-white px-6 py-3 rounded-xl justify-center"
         >
           ביטול
         </button>
