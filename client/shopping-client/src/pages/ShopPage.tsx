@@ -17,6 +17,7 @@ const ShopPage = () => {
   const categories = useSelector((state: RootState) => state.categories.list);
   const selectedCategoryId = useSelector((state: RootState) => state.products.selectedCategoryId);
   const allProducts = useSelector((state: RootState) => state.products.list);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -81,11 +82,11 @@ const ShopPage = () => {
               הוסף לסל
             </button> */}
             <button
-  onClick={() => dispatch(addToCart(p))}
-  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
->
-  הוסף לסל
-</button>
+                onClick={() => dispatch(addToCart(p))}
+                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+            הוסף לסל
+            </button>
 
           </div>
         ))}
@@ -94,11 +95,16 @@ const ShopPage = () => {
       <CartPreview />
       <div className="mt-10 flex justify-center">
         <button
-  onClick={() => navigate('/checkout')}
-  className="bg-green-600 text-white px-6 py-3 rounded-xl text-lg hover:bg-green-700"
->
-  המשך להזמנה
-</button>
+          onClick={() => navigate('/checkout')}
+          disabled={cartItems.length === 0}
+          className={`px-6 py-3 rounded-xl text-lg ${
+            cartItems.length === 0
+              ? 'bg-gray-400 text-white cursor-not-allowed'
+              : 'bg-green-600 text-white hover:bg-green-700'
+          }`}
+        >
+        המשך להזמנה
+        </button>
       </div>
     </div>
   );
