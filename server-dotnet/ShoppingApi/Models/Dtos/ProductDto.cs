@@ -1,4 +1,4 @@
-namespace ShoppingApi.Models
+namespace ShoppingApi.Models.Dtos
 {
     public class ProductDto
     {

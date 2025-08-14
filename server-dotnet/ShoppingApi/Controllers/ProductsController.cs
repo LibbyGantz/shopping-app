@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Data;
 using ShoppingApi.Models;
+using ShoppingApi.Models.Dtos;
 
 [Route("api/[controller]")]
 [ApiController]
