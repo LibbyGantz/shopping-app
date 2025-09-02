@@ -63,11 +63,11 @@ const CheckoutPage = () => {
         throw new Error('ההזמנה נכשלה');
       }
 
-      alert('✅ ההזמנה התקבלה!');
+      alert('ההזמנה התקבלה!');
       dispatch(clearCart());
       navigate('/');
     } catch (err) {
-      alert('❌ שגיאה בשליחת ההזמנה');
+      alert('שגיאה בשליחת ההזמנה');
       console.error(err);
     }
   };

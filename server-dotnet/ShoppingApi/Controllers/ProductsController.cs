@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Data;
-using ShoppingApi.Models;
 using ShoppingApi.Models.Dtos;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProductsController : ControllerBase
+public class ProductsController(AppDbContext context) : ControllerBase
 {
-    private readonly AppDbContext _context;
-
-    public ProductsController(AppDbContext context)
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _context = context;
 
     // [HttpGet]
     // public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
@@ -21,7 +15,7 @@ public class ProductsController : ControllerBase
     //     return await _context.Products.Include(p => p.Category).ToListAsync();
     // }
 
-    [HttpGet]
+[HttpGet]
 public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
 {
     var products = await _context.Products

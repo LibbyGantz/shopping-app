@@ -24,6 +24,6 @@ mongoose
   .catch((err) => console.error('MongoDB connection error:', err));
 
   // Routes
-  app.use('/api/orders', orderRoutes);
+  //app.use('/api/orders', orderRoutes);
 
 
